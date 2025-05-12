@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-	    APP_NAME = "register-app-pipeline"
+	APP_NAME = "register-app-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "paultofunmi"
         DOCKER_PASS = credentials('dockerhub')
@@ -23,7 +23,7 @@ pipeline {
 
         stage("Checkout from SCM"){
                 steps {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/Ashfaque-9x/register-app'
+                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/paultofunmi/register-app'
                 }
         }
 
@@ -72,23 +72,6 @@ pipeline {
                 }
             }
 
-       }
-
-       stage("Trivy Scan") {
-           steps {
-               script {
-	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ashfaque9x/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
-               }
-           }
-       }	    
-
-       stage ('Cleanup Artifacts') {
-           steps {
-               script {
-                    sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
-                    sh "docker rmi ${IMAGE_NAME}:latest"
-               }
-          }
        }	    
     }
 }
