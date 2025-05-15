@@ -33,6 +33,6 @@
 
    <h1> Thank You </h1>
    <br>
-   <h1> Happy Learning. See You Again from Tofunmi. </h1>
+   <h1> Happi Learning. See You Again from Tofunmi. </h1>
    
 </form>
